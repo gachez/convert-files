@@ -1,0 +1,36 @@
+input{
+    cursor: pointer;
+}
+.title{
+    text-decoration: underline;
+    margin-top: 2rem;
+    margin-left: 2rem;
+    font-size: 24px;
+    font-weight: bold;
+}
+.body-section{
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+}
+.body-section div{
+    width: 50%;
+    padding-left: 2rem;
+}
+.convert{
+    margin-left: 4rem;
+}
+
+.merge-section{
+    display: flex;
+}
+
+.merge-section div{
+    margin-top: 2rem;
+    width: 50%;
+    padding-left: 2rem;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}

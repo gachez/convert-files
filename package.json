@@ -1,0 +1,32 @@
+{
+  "name": "fileconverterg",
+  "version": "1.0.0",
+  "description": "convert/merge files into various formats for free!",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gachez/convert-files.git"
+  },
+  "keywords": [
+    "pdf",
+    "word",
+    "txt",
+    "excel"
+  ],
+  "author": "gachez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gachez/convert-files.git/issues"
+  },
+  "homepage": "https://github.com/gachez/convert-files.git#readme",
+  "dependencies": {
+    "easy-pdf-merge": "^0.2.6",
+    "libreoffice-convert": "^1.3.2"
+  },
+  "devDependencies": {
+    "electron": "^11.2.0"
+  }
+}
