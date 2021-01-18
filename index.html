@@ -90,12 +90,15 @@
 
       //merge pdf files
       document.getElementById('merge-btn').addEventListener('click', () => {
-       
+        document.getElementsByClassName('overlay')[0].style.display = 'flex';
         multipleInputs.length > 0 ?
-        merge(multipleInputs, 'merged.pdf', function (err) {
+        merge(multipleInputs, 'outputs/merged.pdf', function (err) {
             if (err) {
+                document.getElementsByClassName('overlay')[0].style.display = 'none';
+                alert('Failed to merge. Please try again')
                 return console.log(err)
             }
+            document.getElementsByClassName('overlay')[0].style.display = 'none';
             alert('Successfully merged to outputs folder!');
             console.log('Success')
         }) 

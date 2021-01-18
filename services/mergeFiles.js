@@ -6,7 +6,7 @@ const mergeFiles = (source_files, dest_file_path) => {
         if (err) {
             return console.log(err)
         }
-        document.getElementsByClassName('overlay')[0].style.display = 'none';
+
         alert('Successfully merged')
         console.log('Success')
     });
