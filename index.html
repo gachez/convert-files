@@ -41,18 +41,21 @@
         
     </section>
 
-    <!-- yabascrbt -->
+    <div class="overlay">
+            <img id="spinner" alt="spinner" src="spinner.gif" width="120px" height="120px"/>
+    </div>
+
+<!-- javascript logic down here  -->
  <script type="module">
     const { convertFilewithLibre, mergeFiles} = require('./services/index.js');
     const merge = require('easy-pdf-merge');
     let inputFile;
     let multipleInputs = [];
     
-    let typeToConvert = '';
+    let typeToConvert = '.pdf';
     const handleChange = (e) => {
         const files = e.target.files;
         if (files && files[0]){ 
-            console.log(typeof files);
             for (const [key, value] of Object.entries(files)) {
                 multipleInputs.push(value.path)
                }
@@ -62,6 +65,11 @@
             }
         console.log('no luck')
       };
+
+      document.getElementById('filestype').addEventListener('change', (e) => {
+          typeToConvert = '.'+e.target.value.toLowerCase()
+          console.log(typeToConvert);
+      })
 
       document.getElementById('convert-file').addEventListener('change', (e) => {
           handleChange(e)
@@ -76,9 +84,6 @@
         convertFilewithLibre(typeToConvert, inputFile, '../outputs/converted');
       })
 
-      document.getElementById('filestype').addEventListener('change', (e) => {
-          typeToConvert = '.'+e.target.value.toLowerCase()
-      })
       document.getElementById('merge-files').addEventListener('change', (e) => {
           handleChange(e)
       })
