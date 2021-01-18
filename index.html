@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>File Converter</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link href="index.css" rel="stylesheet" >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body style="background: white;">
+    
+    <h3 class="title">Convert your files to different format.</h3>
+    
+    <section class="body-section">
+        <div class="file-upload-section ">
+            <label ><b>Upload file to convert (docx,pdf,jpg,png,html):</b></label><br /><br />
+            <input type="file" title="Upload file to convert" id="convert-file"/> 
+        </div>
+
+        <div class="file-type-section">
+            <label ><b>Choose file format to convert to:</b></label><br /><br />
+            <select name="filetypes" id="filestype">
+                <option value="PDF">PDF</option>
+                <option value="JPG">JPG</option>
+                <option value="PNG">PNG</option>
+            </select>
+            <button class="btn btn-primary convert" id="convertbtn" >Convert File</button>
+        </div>
+    </section>
+    <br />
+    <br />
+    <h3 class="title">Merge pdf documents.</h3>
+    <section class="merge-section">
+        <div class="file-upload-section">
+            <label style="margin-right: .5rem;"><b>Upload pdf files to merge:</b></label><br /><br />
+            <input type="file" title="Upload files to merge" id="merge-files" multiple/> 
+        </div>
+        <div>
+            <button class="btn btn-primary" id="merge-btn">Merge Files</button>
+        </div>
+        
+    </section>
+
+    <!-- yabascrbt -->
+ <script type="module">
+    const { convertFilewithLibre, mergeFiles} = require('./services/index.js');
+    const merge = require('easy-pdf-merge');
+    let inputFile;
+    let multipleInputs = [];
+    
+    let typeToConvert = '';
+    const handleChange = (e) => {
+        const files = e.target.files;
+        if (files && files[0]){ 
+            console.log(typeof files);
+            for (const [key, value] of Object.entries(files)) {
+                multipleInputs.push(value.path)
+               }
+            // multipleInputs = files.map(file => file.path)
+            inputFile = files[0].path
+            return 0
+            }
+        console.log('no luck')
+      };
+
+      document.getElementById('convert-file').addEventListener('change', (e) => {
+          handleChange(e)
+      })
+
+      document.getElementById('convertbtn').addEventListener('click', () => {
+        if(!inputFile){
+            alert('please upload a file to convert')
+            return null
+        }  
+        console.log(typeToConvert);
+        convertFilewithLibre(typeToConvert, inputFile, '../outputs/converted');
+      })
+
+      document.getElementById('filestype').addEventListener('change', (e) => {
+          typeToConvert = '.'+e.target.value.toLowerCase()
+      })
+      document.getElementById('merge-files').addEventListener('change', (e) => {
+          handleChange(e)
+      })
+
+      //merge pdf files
+      document.getElementById('merge-btn').addEventListener('click', () => {
+       
+        multipleInputs.length > 0 ?
+        merge(multipleInputs, 'merged.pdf', function (err) {
+            if (err) {
+                return console.log(err)
+            }
+            alert('Successfully merged to outputs folder!');
+            console.log('Success')
+        }) 
+        :
+        alert('Please select files to merge')
+        })
+ </script>  
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>
